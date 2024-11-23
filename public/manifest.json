@@ -1,0 +1,36 @@
+{
+    "name": "Residio",
+    "short_name": "Residio",
+    "description": "Premium Real Estate Platform",
+    "dir": "ltr",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "background_color": "#FFFFFF",
+    "theme_color": "#2A3342",
+    "icons": [
+        {
+            "src": "/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/android-chrome-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": [
+        "real estate",
+        "business",
+        "lifestyle"
+    ],
+    "prefer_related_applications": false
+}

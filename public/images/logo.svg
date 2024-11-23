@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <!-- Logo Symbol -->
+  <g transform="translate(20, 10)">
+    <!-- Abstract House Shape -->
+    <path 
+      d="M35 60 L60 35 L85 60 L85 85 L35 85 Z" 
+      fill="#2A3342"
+      stroke="none"
+    />
+    <!-- Accent Line -->
+    <path 
+      d="M45 65 L75 65" 
+      stroke="#C8A574" 
+      stroke-width="3" 
+      stroke-linecap="round"
+    />
+  </g>
+  
+  <!-- Wordmark -->
+  <g transform="translate(110, 65)">
+    <!-- RESIDIO text -->
+    <text 
+      font-family="'Playfair Display', serif" 
+      font-size="48" 
+      font-weight="600" 
+      fill="#2A3342"
+    >
+      RESIDIO
+    </text>
+    <!-- Premium Real Estate tagline -->
+    <text 
+      x="5" 
+      y="30" 
+      font-family="'Inter', sans-serif" 
+      font-size="14" 
+      fill="#6B7280" 
+      letter-spacing="2"
+    >
+      PREMIUM REAL ESTATE
+    </text>
+  </g>
+  
+  <!-- Additional decorative element -->
+  <path 
+    d="M95 60 L105 60" 
+    stroke="#C8A574" 
+    stroke-width="2"
+    stroke-linecap="round"
+  />
+</svg>
