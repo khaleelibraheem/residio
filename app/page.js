@@ -24,7 +24,7 @@ import {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-black overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-black">
       <HeroSection />
 
       {/* Stats Section */}

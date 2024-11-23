@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 const VideoTestimonial = () => {
   const [showModal, setShowModal] = useState(false);
 
@@ -48,30 +49,13 @@ const VideoTestimonial = () => {
           <div className="lg:pl-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="relative">
-                <img
+                <Image
                   src="/images/person1.jpg"
                   alt="Client"
                   className="w-20 h-20 rounded-full object-cover border-4 border-white dark:border-black"
+                  width={500}
+                  height={500}
                 />
-                {/* Optimized verified badge */}
-                <div className="absolute -bottom-2 -right-1 whitespace-nowrap">
-                  <div className="bg-gradient-to-r from-primary to-primary/80 text-white px-3 py-1 rounded-full text-xs font-medium inline-flex items-center gap-1">
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    Verified Buyer
-                  </div>
-                </div>
               </div>
               <div>
                 <h4 className="text-xl font-semibold dark:text-white">
