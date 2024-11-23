@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Logo from "./logo";
+import Logo from "./LogoComponent";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -49,7 +49,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/">
-             <Logo />
+              <Logo />
             </Link>
             <p className="mt-4 text-gray-600 dark:text-gray-400 mb-6">
               Experience unparalleled luxury real estate services. Your journey

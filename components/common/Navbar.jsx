@@ -78,7 +78,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Skeleton } from "@/components/ui/skeleton";
-import Logo from "./logo";
+import Logo from "./LogoComponent";
 
 const SearchModal = ({ isOpen, setIsOpen }) => {
   const [searchQuery, setSearchQuery] = useState("");
