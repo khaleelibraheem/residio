@@ -31,6 +31,7 @@ import {
   History,
   ArrowRight,
   TrendingUp,
+  House,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
@@ -251,6 +252,13 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  // Add state for controlling drawer
+  const [open, setOpen] = React.useState(false);
+
+  // Handler for link clicks
+  const handleLinkClick = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -271,11 +279,7 @@ const Navbar = () => {
       href: "/listings",
       description: "Find your next rental property",
     },
-    {
-      name: "New Developments",
-      href: "/listings",
-      description: "Explore new construction projects",
-    },
+    
     {
       name: "Commercial",
       href: "/listings",
@@ -500,7 +504,7 @@ const Navbar = () => {
                 <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               </Button>
 
-              <Drawer>
+              <Drawer open={open} onOpenChange={setOpen}>
                 <DrawerTrigger asChild>
                   <Button variant="ghost" size="icon">
                     <Menu className="w-6 h-6" />
@@ -515,26 +519,37 @@ const Navbar = () => {
                   </DrawerHeader>
                   <div className="px-4 py-2">
                     <div className="space-y-3">
+                      <Link
+                        href="/"
+                        className="flex items-center py-3 text-foreground hover:bg-muted rounded-md px-2"
+                        onClick={handleLinkClick}
+                      >
+                        <House className="mr-3 h-4 w-4" />
+                        Home
+                      </Link>
                       {propertyCategories.map((category) => (
                         <Link
                           key={category.name}
                           href={category.href}
                           className="flex items-center py-3 text-foreground hover:bg-muted rounded-md px-2"
+                          onClick={handleLinkClick}
                         >
                           <Building2 className="mr-3 h-4 w-4" />
                           {category.name}
                         </Link>
                       ))}
-                      <Link
+                      {/* <Link
                         href="/map"
                         className="flex items-center py-3 text-foreground hover:bg-muted rounded-md px-2"
+                        onClick={handleLinkClick}
                       >
                         <Map className="mr-3 h-4 w-4" />
                         Map View
-                      </Link>
+                      </Link> */}
                       <Link
                         href="/saved"
                         className="flex items-center py-3 text-foreground hover:bg-muted rounded-md px-2"
+                        onClick={handleLinkClick}
                       >
                         <Heart className="mr-3 h-4 w-4" />
                         Saved Properties
@@ -564,7 +579,7 @@ const Navbar = () => {
                         Help Center
                       </Link> */}
 
-                      <Button className="w-full mt-4">
+                      <Button className="w-full mt-4" onClick={handleLinkClick}>
                         <PlusSquare className="mr-2 h-4 w-4" /> List Property
                       </Button>
                     </div>
