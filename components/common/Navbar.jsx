@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 
 const menuItems = [
   { title: "Home", href: "/" },
-  { title: "Properties", href: "/properties" },
+  { title: "Properties", href: "/listings" },
   { title: "About", href: "/about" },
   { title: "Contact", href: "/contact" },
 ];
@@ -94,7 +94,7 @@ export default function Navbar() {
 
     return mobile ? (
       <button className="w-full text-left" onClick={onClick}>
-        {Component}
+        <Link href={href}>{Component}</Link>
       </button>
     ) : (
       <Link href={href}>{Component}</Link>

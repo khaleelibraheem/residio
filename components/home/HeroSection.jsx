@@ -180,12 +180,12 @@ const HeroSection = () => {
                 transition={{ duration: 0.5 }}
                 className="mb-6"
               >
-                <h1 className="text-3xl md:text-6xl font-semibold text-white leading-tight mb-4">
+                <h1 className="text-6xl font-semibold text-white mb-4 tracking-tight">
                   Find Your Dream
                   <br />
                   Luxury Home
                 </h1>
-                <p className="text-base md:text-lg text-white/80 max-w-xl">
+                <p className="text-base md:text-lg text-white/80 max-w-xl tracking-tight">
                   Discover exceptional properties in the world&apos;s most
                   prestigious locations
                 </p>

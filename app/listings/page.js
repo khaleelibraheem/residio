@@ -122,7 +122,7 @@ export default function ListingsPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       {/* Header Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -131,7 +131,7 @@ export default function ListingsPage() {
         >
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-4xl font-playfair font-bold dark:text-white mb-2">
+              <h1 className="text-4xl tracking-tight font-bold dark:text-white mb-2">
                 Luxury Properties
               </h1>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl">
