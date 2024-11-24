@@ -186,7 +186,7 @@ const HeroSection = () => {
                   Luxury Home
                 </h1>
                 <p className="text-base md:text-lg text-white/80 max-w-xl">
-                  Discover exceptional properties in the world's most
+                  Discover exceptional properties in the world&apos;s most
                   prestigious locations
                 </p>
               </motion.div>
