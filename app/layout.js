@@ -1,14 +1,13 @@
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import Navbar from "@/components/common/Navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ["latin"],
-  // Including a range of weights for versatility
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // Include necessary weights
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -94,7 +93,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} font-poppins antialiased`}>
+      <body className={`${inter.variable} font-inter antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

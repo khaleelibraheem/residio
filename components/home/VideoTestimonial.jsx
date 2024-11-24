@@ -55,6 +55,7 @@ const VideoTestimonial = () => {
                   className="w-20 h-20 rounded-full object-cover border-4 border-white dark:border-black"
                   width={500}
                   height={500}
+                  priority
                 />
               </div>
               <div>

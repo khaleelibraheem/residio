@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import HeroSection from "@/components/home/HeroSection";
 import SectionContainer from "@/components/shared/SectionContainer";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -23,8 +24,65 @@ import {
 } from "@/lib/data";
 
 export default function HomePage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [contentReady, setContentReady] = useState(false);
+
+  useEffect(() => {
+    const loadTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    const contentTimer = setTimeout(() => {
+      setContentReady(true);
+    }, 1800);
+
+    return () => {
+      clearTimeout(loadTimer);
+      clearTimeout(contentTimer);
+    };
+  }, []);
+
+  if (isLoading || !contentReady) {
+    return (
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-background to-accent/5">
+        <div className="relative mb-8">
+          <div className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+            Residio
+          </div>
+          <div className="absolute inset-0 animate-ping-slow rounded-full bg-primary/10 scale-150" />
+          <div className="absolute inset-0 animate-ping-slower rounded-full bg-primary/5 scale-200" />
+        </div>
+
+        <div className="flex gap-2 mb-4">
+          <div
+            className="w-2 h-2 rounded-full bg-primary/40 animate-bounce"
+            style={{ animationDelay: "0ms" }}
+          />
+          <div
+            className="w-2 h-2 rounded-full bg-primary/40 animate-bounce"
+            style={{ animationDelay: "150ms" }}
+          />
+          <div
+            className="w-2 h-2 rounded-full bg-primary/40 animate-bounce"
+            style={{ animationDelay: "300ms" }}
+          />
+        </div>
+{/* 
+        <div className="text-muted-foreground animate-pulse">
+          Loading amazing properties...
+        </div> */}
+
+        {!contentReady && !isLoading && (
+          <div className="mt-4 w-48 h-1 bg-accent/20 rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full animate-progress" />
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-white dark:bg-black overflow-hidden">
+    <main className="min-h-screen bg-background overflow-hidden animate-in fade-in duration-500 fill-mode-forwards">
       <HeroSection />
 
       {/* Stats Section */}
@@ -38,14 +96,12 @@ export default function HomePage() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl bg-white dark:bg-black border border-gray-100 dark:border-gray-800"
+              className="p-6 rounded-2xl bg-card border border-border"
             >
               <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                 {stat.number}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">
-                {stat.label}
-              </p>
+              <p className="text-muted-foreground mt-2">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -59,7 +115,7 @@ export default function HomePage() {
             subtitle="Handpicked premium properties for luxury living"
             className="mb-0"
           />
-          <GradientButton className="hidden md:flex items-center gap-2 dark:text-black">
+          <GradientButton className="hidden md:flex items-center gap-2">
             View All <ArrowRight className="w-4 h-4" />
           </GradientButton>
         </div>
@@ -124,6 +180,6 @@ export default function HomePage() {
       </SectionContainer>
 
       <Footer />
-    </div>
+    </main>
   );
 }

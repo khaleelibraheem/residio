@@ -20,6 +20,7 @@ export default function NeighborhoodCard({ neighborhood, index }) {
           className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
           width={500}
           height={500}
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
 

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function GalleryGrid({ items }) {
   return (
@@ -20,10 +21,13 @@ export default function GalleryGrid({ items }) {
                 : "col-span-1 row-span-1"
             }`}
         >
-          <img
+          <Image
             src={item.url}
             alt={item.tag}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            width={500}
+            height={500}
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

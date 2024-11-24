@@ -1,251 +1,305 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { MapPin, Search, BedDouble, Bath, Square } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { MapPin, Crown, Star, ArrowUpRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 
-const PropertyCard = ({ city, price, rating, listings, trend, image }) => (
-  <Card
-    className={cn(
-      "backdrop-blur-md transition-all duration-300 overflow-hidden group cursor-pointer",
-      "dark:bg-black/20 dark:hover:bg-black/40 dark:border-white/10",
-      "bg-white/80 hover:bg-white/90 border-black/10"
-    )}
-  >
-    <CardContent className="p-6 relative">
-      {/* Top Section */}
-      <div className="flex items-start justify-between mb-6">
-        <div>
-          <h3
-            className={cn(
-              "text-lg font-medium mb-2 transition-colors",
-              "dark:text-white dark:group-hover:text-primary",
-              "text-gray-900 group-hover:text-primary"
-            )}
-          >
-            {city}
-          </h3>
-          <div
-            className={cn(
-              "flex items-center gap-1.5 text-sm",
-              "dark:text-white/60",
-              "text-gray-600"
-            )}
-          >
-            <MapPin className="w-4 h-4" />
-            <span>{listings} Available Properties</span>
-          </div>
-        </div>
-        <Badge
-          variant="outline"
-          className={cn(
-            "border-0 transition-colors",
-            "dark:bg-primary/10 dark:text-primary",
-            "bg-primary/20 text-primary"
-          )}
-        >
-          {trend}
-        </Badge>
-      </div>
+const PropertyCard = ({ delay, data, variant }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-      {/* Middle Section */}
-      <div className="flex items-center gap-4 mb-6">
-        <div
-          className={cn(
-            "flex items-center gap-1 px-2.5 py-1.5 rounded-full",
-            "dark:bg-white/5 dark:text-white/80",
-            "bg-black/5 text-gray-900"
-          )}
-        >
-          <Star className="w-4 h-4 fill-primary text-primary" />
-          <span className="text-sm font-medium">{rating}</span>
-        </div>
-        <div className={cn("h-4 w-px", "dark:bg-white/10", "bg-black/10")} />
-        <div className={cn("text-sm", "dark:text-white/60", "text-gray-600")}>
-          Premier Location
-        </div>
-      </div>
+  const variants = {
+    top: "lg:absolute lg:top-8 lg:right-28 lg:rotate-3",
+    middle: "lg:absolute lg:top-44 lg:-right-6 lg:-rotate-3",
+    bottom: "lg:absolute lg:top-[340px] lg:right-32 lg:rotate-6",
+  };
 
-      {/* Bottom Section */}
-      <div className="flex items-end justify-between">
-        <div>
-          <div
-            className={cn(
-              "text-sm mb-1",
-              "dark:text-white/60",
-              "text-gray-600"
-            )}
-          >
-            Starting from
-          </div>
-          <div
-            className={cn(
-              "text-2xl font-semibold",
-              "dark:text-white",
-              "text-gray-900"
-            )}
-          >
-            ${price}M
-          </div>
-        </div>
-        <div
-          className={cn(
-            "h-8 w-8 rounded-full flex items-center justify-center transition-colors",
-            "dark:bg-white/5 dark:group-hover:bg-primary/20",
-            "bg-black/5 group-hover:bg-primary/20"
-          )}
-        >
-          <ArrowUpRight
-            className={cn(
-              "w-4 h-4 transition-colors",
-              "dark:text-white/60 dark:group-hover:text-primary",
-              "text-gray-600 group-hover:text-primary"
-            )}
-          />
-        </div>
-      </div>
-
-      {/* Hover Effect */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
-        <div
-          className={cn(
-            "absolute inset-0 bg-gradient-to-r",
-            "dark:from-primary/5 dark:to-transparent",
-            "from-primary/10 to-transparent"
-          )}
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05, rotate: 0, zIndex: 50 }}
+      transition={{ duration: 0.5, delay }}
+      className={`bg-white/10 backdrop-blur-md rounded-xl border border-white/10 shadow-xl p-3 w-[280px] transition-all duration-300 ${variants[variant]}`}
+    >
+      <div className="relative h-32 rounded-lg overflow-hidden mb-3">
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-white/10 animate-pulse" />
+        )}
+        <Image
+          src={data.image}
+          alt={data.title}
+          className={`object-cover hover:scale-110 transition-transform duration-300 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          fill
+          sizes="(max-width: 280px) 100vw"
+          onLoad={() => setImageLoaded(true)}
+          priority
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="absolute top-2 left-2 bg-white/20 backdrop-blur-md rounded-full px-3 py-1">
+          <span className="text-xs font-medium text-white">
+            ${data.price.toLocaleString()}
+          </span>
+        </div>
       </div>
-    </CardContent>
-  </Card>
-);
+      <h3 className="text-white font-medium mb-2 truncate">{data.title}</h3>
+      <div className="flex items-center gap-4 text-white/80 text-sm">
+        <div className="flex items-center gap-1">
+          <BedDouble className="w-4 h-4" />
+          <span>{data.beds}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Bath className="w-4 h-4" />
+          <span>{data.baths}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Square className="w-4 h-4" />
+          <span>{data.sqft} sqft</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
-export default function HeroSection() {
-  const properties = [
+const MobilePropertyCard = ({ delay, data }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay }}
+      className="bg-white/10 backdrop-blur-md rounded-xl border border-white/10 shadow-xl p-3 w-[280px] shrink-0 snap-center"
+    >
+      <div className="relative h-32 rounded-lg overflow-hidden mb-3">
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-white/10 animate-pulse" />
+        )}
+        <Image
+          src={data.image}
+          alt={data.title}
+          className={`object-cover hover:scale-110 transition-transform duration-300 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          fill
+          sizes="(max-width: 280px) 100vw"
+          onLoad={() => setImageLoaded(true)}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="absolute top-2 left-2 bg-white/20 backdrop-blur-md rounded-full px-3 py-1">
+          <span className="text-xs font-medium text-white">
+            ${data.price.toLocaleString()}
+          </span>
+        </div>
+      </div>
+      <h3 className="text-white font-medium mb-2 truncate">{data.title}</h3>
+      <div className="flex items-center gap-4 text-white/80 text-sm">
+        <div className="flex items-center gap-1">
+          <BedDouble className="w-4 h-4" />
+          <span>{data.beds}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Bath className="w-4 h-4" />
+          <span>{data.baths}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Square className="w-4 h-4" />
+          <span>{data.sqft} sqft</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const HeroSection = () => {
+  const [category, setCategory] = React.useState("buy");
+
+  const propertyData = [
     {
-      city: "Beverly Hills",
-      price: "4.5",
-      rating: "4.9",
-      listings: "24",
-      trend: "High Demand",
-      image: "/beverly-hills.jpg",
+      image: "/images/image1.jpg",
+      title: "Modern Villa in Beverly Hills",
+      price: 2500000,
+      beds: 5,
+      baths: 4,
+      sqft: 3200,
     },
     {
-      city: "Manhattan",
-      price: "8.2",
-      rating: "4.8",
-      listings: "18",
-      trend: "Trending",
-      image: "/manhattan.jpg",
+      image: "/images/image2.jpg",
+      title: "Luxury Penthouse in Manhattan",
+      price: 3800000,
+      beds: 4,
+      baths: 3,
+      sqft: 2800,
     },
     {
-      city: "Miami Beach",
-      price: "3.8",
-      rating: "4.7",
-      listings: "15",
-      trend: "New Listings",
-      image: "/miami.jpg",
+      image: "/images/image3.jpg",
+      title: "Oceanfront Estate Miami",
+      price: 4200000,
+      beds: 6,
+      baths: 5,
+      sqft: 4100,
     },
   ];
 
   return (
-    <section className="min-h-screen relative overflow-hidden">
-      {/* Gradient Background - Optimized for both modes */}
-      <div
-        className={cn(
-          "absolute inset-0",
-          "dark:bg-gradient-to-br dark:from-black dark:via-gray-900 dark:to-black",
-          "bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50"
-        )}
-      >
-        <div className="absolute inset-0 opacity-40">
-          <div
-            className={cn(
-              "absolute top-0 -left-4 w-96 h-96 rounded-full mix-blend-multiply filter blur-3xl animate-blob",
-              "dark:bg-primary/30",
-              "bg-primary/20"
-            )}
-          />
-          <div
-            className={cn(
-              "absolute top-0 -right-4 w-96 h-96 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000",
-              "dark:bg-purple-500/30",
-              "bg-purple-500/20"
-            )}
-          />
-          <div
-            className={cn(
-              "absolute -bottom-8 left-20 w-96 h-96 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000",
-              "dark:bg-pink-500/30",
-              "bg-pink-500/20"
-            )}
-          />
+    <section className="relative h-auto min-h-screen w-full overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/image3.jpg"
+          alt="Luxury home"
+          className="object-cover w-full h-full"
+          width={1920}
+          height={1080}
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative w-full px-4 lg:px-12 py-28">
+        <div className="container mx-auto">
+          <div className="lg:grid lg:grid-cols-2 gap-4 relative">
+            {/* Left Column - Search Section */}
+            <div className="relative z-10">
+              {/* Hero Text */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-6"
+              >
+                <h1 className="text-3xl md:text-6xl font-semibold text-white leading-tight mb-4">
+                  Find Your Dream
+                  <br />
+                  Luxury Home
+                </h1>
+                <p className="text-base md:text-lg text-white/80 max-w-xl">
+                  Discover exceptional properties in the world's most
+                  prestigious locations
+                </p>
+              </motion.div>
+
+              {/* Search Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-white/10 backdrop-blur-md rounded-xl border border-white/10 shadow-xl p-4 md:p-6"
+              >
+                {/* Category Toggle */}
+                <div className="flex space-x-1 bg-white/10 w-fit rounded-xl p-1 mb-4">
+                  {["buy", "rent"].map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => setCategory(type)}
+                      className={`
+                        px-6 py-2 rounded-lg text-sm font-medium transition-all
+                        ${
+                          category === type
+                            ? "bg-white text-black"
+                            : "text-white hover:bg-white/10"
+                        }
+                      `}
+                    >
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Search Controls */}
+                <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-3">
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60" />
+                    <Input
+                      placeholder="Location"
+                      className="w-full h-10 md:h-12 bg-white/10 border-white/10 rounded-lg pl-10 text-white placeholder:text-white/60 focus:ring-2 focus:ring-white/20 focus:bg-white/20"
+                    />
+                  </div>
+
+                  <Select>
+                    <SelectTrigger className="h-10 md:h-12 bg-white/10 border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:bg-white/20">
+                      <SelectValue placeholder="Property Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="house">House</SelectItem>
+                      <SelectItem value="apartment">Apartment</SelectItem>
+                      <SelectItem value="villa">Villa</SelectItem>
+                      <SelectItem value="penthouse">Penthouse</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Button className="h-10 md:h-12 bg-white hover:bg-white/90 text-black rounded-lg font-medium">
+                    <Search className="w-4 h-4 mr-2" />
+                    Search
+                  </Button>
+                </div>
+
+                {/* Popular Locations */}
+                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                  <span className="text-white/60">Popular:</span>
+                  {["Beverly Hills", "Manhattan", "Miami Beach"].map(
+                    (location) => (
+                      <button
+                        key={location}
+                        className="text-white hover:text-white/80 transition-colors"
+                      >
+                        {location}
+                      </button>
+                    )
+                  )}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right Column - Property Cards for Desktop */}
+            <div className="hidden lg:block relative h-[500px]">
+              {propertyData.map((property, index) => (
+                <PropertyCard
+                  key={index}
+                  data={property}
+                  delay={0.4 + index * 0.2}
+                  variant={["top", "middle", "bottom"][index]}
+                />
+              ))}
+            </div>
+
+            {/* Mobile Property Cards */}
+            <div className="lg:hidden flex gap-4 overflow-x-auto pb-4 mt-8 snap-x snap-mandatory scrollbar-hide">
+              {propertyData.map((property, index) => (
+                <MobilePropertyCard
+                  key={index}
+                  data={property}
+                  delay={0.4 + index * 0.2}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20">
-        <div className="max-w-xl mx-auto text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className={cn(
-              "inline-flex items-center gap-2 backdrop-blur-sm border rounded-full px-4 py-1 mb-6",
-              "dark:bg-white/5 dark:border-white/10",
-              "bg-black/5 border-black/10"
-            )}
-          >
-            <Crown className="w-4 h-4 text-primary" />
-            <span
-              className={cn("text-sm", "dark:text-white/80", "text-gray-900")}
-            >
-              Premium Properties
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className={cn(
-              "text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight",
-              "dark:text-white",
-              "text-gray-900"
-            )}
-          >
-            Discover Luxury
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500">
-              Real Estate
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className={cn(
-              "text-lg mb-8",
-              "dark:text-white/60",
-              "text-gray-600"
-            )}
-          >
-            Explore exclusive properties in the world&apos;s most prestigious
-            locations
-          </motion.p>
-        </div>
-
-        {/* Property Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
-        >
-          {properties.map((property, index) => (
-            <PropertyCard key={index} {...property} />
-          ))}
-        </motion.div>
-      </div>
+      <style jsx global>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
-}
+};
+
+export default HeroSection;

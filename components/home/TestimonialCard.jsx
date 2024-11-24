@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function TestimonialCard({ testimonial, index }) {
   return (
@@ -14,10 +15,13 @@ export default function TestimonialCard({ testimonial, index }) {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="relative">
           <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white dark:border-black">
-            <img
+            <Image
               src={testimonial.image}
               alt={testimonial.name}
               className="w-full h-full object-cover"
+              width={500}
+              height={500}
+              priority
             />
           </div>
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-primary/80 text-white px-3 py-1 rounded-full text-xs">
