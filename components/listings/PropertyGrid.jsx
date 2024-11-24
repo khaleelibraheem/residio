@@ -56,7 +56,7 @@ export default function PropertyGrid({ properties }) {
         animate="show"
         className={`grid gap-6 ${
           viewType === "grid"
-            ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+            ? "grid-cols-1 md:grid-cols-3 lg:grid-cols-4"
             : "grid-cols-1"
         }`}
       >
